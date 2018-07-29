@@ -15,22 +15,25 @@ class CreateCommunityPolls extends Migration
     {
         Schema::create('polls', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id');
             $table->string('title', 200);
             $table->timestamps();
         });
 
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('poll_id');
             $table->string('title', 200);
             $table->mediumText('question');
-            $table->unsignedInteger('poll_id');
             $table->timestamps();
         });
 
         Schema::create('answers', function (Blueprint $table) {
             $table->increments('id');
-            $table->mediumText('answer');
+            $table->unsignedInteger('user_id');
             $table->unsignedInteger('question_id');
+            $table->mediumText('answer');
             $table->timestamps();
         });
     }

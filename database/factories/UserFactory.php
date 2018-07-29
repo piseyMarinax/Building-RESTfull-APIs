@@ -21,3 +21,31 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Poll::class, function (Faker $faker) {
+    return [
+        'user_id' => function(){
+            return factory('App\User')->create()->id;
+        },
+        'title' => $faker->realText(50),
+    ];
+});
+
+$factory->define(App\Question::class, function (Faker $faker) {
+//    $poll_ids = DB::table('polls')->pluck('id')->all();
+    $user_ids = DB::table('users')->pluck('id')->all();
+    return [
+//        'user_id' => function(){
+//            return factory('App\User')->create()->id;
+//        },
+        'poll_id' => function(){
+            return factory('App\Poll')->create()->id;
+        },
+        'user_id' => $faker->randomElement($user_ids),
+//        'poll_id' => $faker->randomElement($poll_ids),
+
+        'title' => $faker->realText(50),
+        'question' => $faker->realText(500),
+
+    ];
+});

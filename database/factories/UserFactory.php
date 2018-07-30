@@ -27,7 +27,7 @@ $factory->define(App\Poll::class, function (Faker $faker) {
         'user_id' => function(){
             return factory('App\User')->create()->id;
         },
-        'title' => $faker->realText(50),
+        'title' => $faker->sentence,
     ];
 });
 
